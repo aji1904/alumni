@@ -14,7 +14,31 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 -->
+
+
 <?php
+    if (isset($_POST['simpan_user'])) {
+      $nama = $_POST['nama'];
+      $username = $_POST['username'];
+      $password = md5($_POST['password']);
+      $email = $_POST['email'];
+      $telepon = $_POST['telepon'];
+
+      // cek user
+      $cek_user = mysqli_query($CONNECT, "Select username from user where username='".$username."' ");
+      
+      if (mysqli_num_rows($cek_user) > 0) {
+        $_SESSION['message'] = '<div class="alert alert-danger ml-3 mr-3 mt-3">
+                                <span><b>USERNAME Sudah Terdaftar</b></span>
+                                </div>';
+      }else {
+        $simpan_user = mysqli_query($CONNECT, "INSERT INTO user (nama,username,password,email,no_hp) values ('".$nama."','".$username."','".$password."','".$email."','".$telepon."')");
+        $_SESSION['message'] = '<div class="alert alert-Success ml-3 mr-3 mt-3">
+                                <span><b>DATA Berhasil Ditambah</b></span>
+                                </div>';
+      }
+    }
+
       include "components/sidebar.php";
     ?>
     
@@ -33,9 +57,12 @@
         <div class="row">
           <div class="col-md-12">
             <div class="card">
-              <div class="card-header">
-                <h5 class="title">Tambah User</h5>
-              </div>
+            <?php
+              if (isset($_SESSION['message'])) {
+                echo $_SESSION['message'];
+                unset($_SESSION['message']);
+              }
+            ?>
               <div class="card-body">
                 <form method="POST">
                   <div class="row">
@@ -54,7 +81,7 @@
                     <div class="col-md-4 pr-1">
                       <div class="form-group">
                         <label>Password</label>
-                        <input type="password" name="Password" class="form-control" placeholder="Password" required>
+                        <input type="password" name="password" class="form-control" placeholder="Password" required>
                       </div>
                     </div>
                   </div>
@@ -68,12 +95,12 @@
                     <div class="col-md-4 pr-1">
                       <div class="form-group">
                         <label>Nomor Telepon</label>
-                        <input type="number" class="form-control" name="telepon" required>
+                        <input type="number" class="form-control" name="telepon" required placeholder="0812331122990">
                       </div>
                     </div>
                   </div>
                   
-                  <button class="btn btn-success btn-block" name="login">Simpan</button>
+                  <button class="btn btn-success btn-block" name="simpan_user">Simpan</button>
                 </form>
                 
                 <a href="<?= $url?>?page=listuser" class="btn btn-primary btn-block" name="lihat_user">Lihat Data</a>
