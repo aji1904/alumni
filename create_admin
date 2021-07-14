@@ -1,0 +1,1 @@
+INSERT INTO admin (username,password,email) VALUES ('admin', md5('admin'), 'admin@gmail.com')
