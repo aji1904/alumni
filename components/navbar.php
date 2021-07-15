@@ -34,7 +34,7 @@
                   <?php
                     if ($_SESSION['user']=="admin" || $_SESSION['user']=="user") {
                       # code...
-                      echo '<a name="logout" class="dropdown-item" href="'.$url.'?page=logout"><i class="now-ui-icons users_single-02"></i> Logout</a>';
+                      echo '<form method="POST" action='.$url.'?page=control><button name="logout" class="dropdown-item"><i class="now-ui-icons users_single-02"></i> Logout</button>';
                     }else{
                       echo '<a class="dropdown-item" href="'.$url.'?page=login"><i class="now-ui-icons users_circle-08"></i> Login</a>';
                     }

@@ -14,9 +14,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 -->
-<?php
 
-?>
 <body class="user-profile">
   <div class="wrapper">
     
@@ -83,7 +81,7 @@
           ?>
           
           <div class="card-body">
-            <form method="POST" action="<?= $url?>?page=cari">
+            <form method="POST" action="<?= $url?>?page=control">
               <div class="row">
                 
                 <div class="col-md-12 pr-2 pl-2"  style="text-align:left">

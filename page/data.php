@@ -14,10 +14,32 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 -->
-<body class="">
-  <div class="wrapper">
-    
     <?php
+
+    if (isset($_POST['simpan_alumni'])) {
+      $nama = $_POST['nama'];
+      $username = $_POST['username'];
+      $password = md5($_POST['password']);
+      $email = $_POST['email'];
+      $telepon = $_POST['telepon'];
+
+      // cek user
+      $cek_user = mysqli_query($CONNECT, "Select username from user where username='".$username."' ");
+      
+      if (mysqli_num_rows($cek_user) > 0) {
+        $_SESSION['message'] = '<div class="alert alert-danger ml-3 mr-3 mt-3">
+                                <span><b>USERNAME Sudah Terdaftar</b></span>
+                                </div>';
+      }else {
+        $simpan_user = mysqli_query($CONNECT, "INSERT INTO user (nama,username,password,email,no_hp) values ('".$nama."','".$username."','".$password."','".$email."','".$telepon."')");
+        if ($simpan_user) {
+          $_SESSION['message'] = '<div class="alert alert-success ml-3 mr-3 mt-3">
+                                <span><b>DATA Berhasil di Tambahkan</b></span>
+                                </div>';
+        }
+      }
+    }
+
       include "components/sidebar.php";
       
     ?>
@@ -90,7 +112,7 @@
                     </div>
                   </div>
                   
-                  <button class="btn btn-success btn-block" name="login">Simpan</button>
+                  <button class="btn btn-success btn-block" name="simpan_alumni">Simpan</button>
                 </form>
                 
                 <a href="<?= $url?>?page=listdata" class="btn btn-primary btn-block" name="lihat_data">Lihat Data</a>

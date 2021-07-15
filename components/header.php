@@ -1,12 +1,8 @@
 <?php
-  header("Cache-Control: no cache");
-  session_cache_limiter("private_no_expire");
-  session_cache_limiter("public");
+  // header("Cache-Control: no cache");
+  // session_cache_limiter("private_no_expire");
+  // session_cache_limiter("public");
   session_start();
-
-  if (empty($_SESSION['user'])) {
-    $_SESSION['user'] = "tamu";
-  }
   
   $url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[PHP_SELF]";
     

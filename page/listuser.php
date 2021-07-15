@@ -15,7 +15,9 @@
 
 -->
 <?php
-      include "components/sidebar.php";
+  $tampilkan = mysqli_query($CONNECT,"Select id,nama,username,email,no_hp from user");
+ 
+  include "components/sidebar.php";
     ?>
     
     <div class="main-panel" id="main-panel">
@@ -34,17 +36,12 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <?php
-                if (isset($_POST['data'])) {
-                  if ($cek_data_alumni == 0) {
-                    echo '
-                    <div class="alert alert-danger ml-3 mr-3 ">
-                      <span><b>Data Alumni Tidak Ditemukan</b></span>
-                    </div>
-                    ';
-                  }
+              <?php
+                if (isset($_SESSION['message'])) {
+                  echo $_SESSION['message'];
+                  $_SESSION['message'] = "";
                 }
-                ?>
+              ?>
               </div>
               <div class="card-body pt-0">
                 <div class="table-responsive">
@@ -54,13 +51,10 @@
                         No
                       </th>
                       <th>
-                        Nama
-                      </th>
-                      <th>
                         Username
                       </th>
                       <th>
-                        Password
+                        Nama
                       </th>
                       <th>
                         Email
@@ -73,30 +67,39 @@
                       </th>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>
-                          <b>1</b>
-                        </td>
-                        <td>
-                          <b>AJI PRASETYO</b>
-                        </td>
-                        <td>
-                          PALEMBANG, 19 april 2021
-                        </td>
-                        <td>
-                          Jlan Sukarela Lrg Swadaya 2
-                        </td>
-                        <td>
-                          2019
-                        </td>
-                        <td>
-                          2021
-                        </td>
-                        <td>
-                          <button class="btn btn-danger" name="login">Hapus</button>
-                        </td>
-                      
-                      </tr>
+                      <?php
+                        $num = 1;
+                        foreach ($tampilkan as $data => $value) {
+                          
+                        echo '
+                        <tr>
+                          <td>
+                            <b>'.$num.'</b>
+                          </td>
+                          <td>
+                            <b>'.$value['username'].'</b>
+                          </td>
+                          <td>
+                            '.$value['nama'].'
+                          </td>
+                          <td>
+                          '.$value['email'].'
+                          </td>
+                          <td>
+                          '.$value['no_hp'].'
+                          </td>
+                          <td>
+                            <form action="'.$url.'?page=hapus" method="POST"> 
+                            <button class="btn btn-danger" name="hapus_listuser">Hapus</button>
+                            <input type="hidden" name="id" value="'.$value['id'].'">
+                            </form>
+                          </td>
+                        
+                        </tr>
+                        ';
+                        $num++;
+                      }
+                      ?>
                     </tbody>
                   </table>
                 </div>

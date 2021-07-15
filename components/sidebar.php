@@ -15,7 +15,7 @@
       <div class="sidebar-wrapper" id="sidebar-wrapper">
         <ul class="nav">
         <?php
-        
+        echo $_SESSION['user'];
         if ($_SESSION['user']=="tamu") {
           echo '
           <li>
@@ -31,14 +31,30 @@
             </a>
           </li>
           ';
-        } else {
+        } else if($_SESSION['user'] =="user"){
           echo '
-          <li>
-            <a href="'.$home.'">
+          <li >
+            <a href="'.$url.'?page=cari">
               <i class="now-ui-icons design_app"></i>
-              <p>Home</p>
+              <p>Data Alumni</p>
             </a>
           </li>
+          <li>
+            <a href="'.$url.'?page=data">
+              <i class="now-ui-icons education_atom"></i>
+              <p>Insert Data</p>
+            </a>
+          </li>
+          <li>
+            <a href="'.$url.'?page=profil">
+              <i class="now-ui-icons location_map-big"></i>
+              <p>Profil</p>
+            </a>
+          </li>
+          
+          ';
+        } else {
+          echo '
           <li >
             <a href="'.$url.'?page=cari">
               <i class="now-ui-icons design_app"></i>

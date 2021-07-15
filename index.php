@@ -10,23 +10,48 @@
 ?>
 
 <?php
-  $action = $_GET['page'];
-  $home = $url."?page=home";
-    
-  switch ($action) {
-    case 'home'                           : include_once "page/index.php" ; break;
-    case 'cari'                           : include_once "page/cari.php" ; break;
-    case 'tambah'                         : include_once "page/tambahUser.php" ; break;
-    case 'data'                           : include_once "page/data.php" ; break;
-    case 'profil'                         : include_once "page/profil.php" ; break;
-    case 'login'                          : include_once "page/login.php" ; break;
-    case 'logout'                         : session_destroy(); session_unset(); header("location:".$home);  ; break;
-    case 'listuser'                       : include_once "page/listuser.php" ; break;
-    case 'listdata'                       : include_once "page/listalumni.php" ; break;
-    
-    default                         : header("location: $home"); break;
+
+  if (empty($_SESSION['user'])) {
+    $_SESSION['user'] = "tamu";
   }
 
+  $action = $_GET['page'];
+  $home = $url."?page=home";
+
+  if ($_SESSION['user'] == "admin") {
+    switch ($action) {
+      case 'cari'                           : include_once "page/cari.php" ; break;
+      case 'tambah'                         : include_once "page/tambahUser.php" ; break;
+      case 'data'                           : include_once "page/data.php" ; break;
+      case 'profil'                         : include_once "page/profil.php" ; break;
+      case 'listuser'                       : include_once "page/listuser.php" ; break;
+      case 'listdata'                       : include_once "page/listalumni.php" ; break;
+      case 'hapus'                          : include_once "page/hapus.php" ; break;
+      case 'control'                        : include_once "page/controller.php" ; break;
+      
+      default                         : header("location: $home"); exit(); break;
+    }
+  } else if($_SESSION['user'] == "user"){
+    switch ($action) {
+      case 'cari'                           : include_once "page/cari.php" ; break;
+      case 'data'                           : include_once "page/data.php" ; break;
+      case 'profil'                         : include_once "page/profil.php" ; break;
+      case 'listdata'                       : include_once "page/listalumni.php" ; break;
+      case 'hapus'                          : include_once "page/hapus.php" ; break;
+      case 'control'                        : include_once "page/controller.php" ; break;
+      
+      default                         : header("location: $home"); die(); break;
+    }
+  } else {
+    switch ($action) {
+      case 'home'                           : include_once "page/index.php" ; break;
+      case 'cari'                           : include_once "page/cari.php" ; break;
+      case 'control'                        : include_once "page/controller.php" ; break;
+      case 'login'                          : include_once "page/login.php" ; break;
+      
+      default                         : header("location: $home"); die(); break;
+    }
+  }
   
   include "components/script.php";
 ?>

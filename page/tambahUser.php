@@ -33,9 +33,11 @@
                                 </div>';
       }else {
         $simpan_user = mysqli_query($CONNECT, "INSERT INTO user (nama,username,password,email,no_hp) values ('".$nama."','".$username."','".$password."','".$email."','".$telepon."')");
-        $_SESSION['message'] = '<div class="alert alert-Success ml-3 mr-3 mt-3">
-                                <span><b>DATA Berhasil Ditambah</b></span>
+        if ($simpan_user) {
+          $_SESSION['message'] = '<div class="alert alert-success ml-3 mr-3 mt-3">
+                                <span><b>DATA Berhasil di Tambahkan</b></span>
                                 </div>';
+        }
       }
     }
 
