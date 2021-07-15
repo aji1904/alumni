@@ -15,7 +15,9 @@
 
 -->
 <?php
-      include "components/sidebar.php";
+  $tampilkan = mysqli_query($CONNECT,"Select id_mahasiswa, nama, tempat_lahir, tgl_lahir, alamat, tahun_masuk, tahun_lulus from data_alumni");
+ 
+  include "components/sidebar.php";
     ?>
     
     <div class="main-panel" id="main-panel">
@@ -26,7 +28,7 @@
       
       <div class="panel-header panel-header-sm mb-3">
         <div class="header text-center">
-          <h5 class="title">Data Alumi</h5>
+          <h5 class="title">Data User Access</h5>
         </div>
       </div>
       <div class="content">
@@ -34,17 +36,12 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <?php
-                if (isset($_POST['data'])) {
-                  if ($cek_data_alumni == 0) {
-                    echo '
-                    <div class="alert alert-danger ml-3 mr-3 ">
-                      <span><b>Data Alumni Tidak Ditemukan</b></span>
-                    </div>
-                    ';
-                  }
+              <?php
+                if (isset($_SESSION['message'])) {
+                  echo $_SESSION['message'];
+                  $_SESSION['message'] = "";
                 }
-                ?>
+              ?>
               </div>
               <div class="card-body pt-0">
                 <div class="table-responsive">
@@ -54,49 +51,64 @@
                         No
                       </th>
                       <th>
+                        NIM
+                      </th>
+                      <th>
                         Nama
                       </th>
                       <th>
-                        Username
+                        Tempat & Tgl lahir
                       </th>
                       <th>
-                        Password
+                        Alamat
                       </th>
                       <th>
-                        Email
+                        Tahun Masuk
                       </th>
                       <th>
-                        No. HP
-                      </th>
-                      <th>
-                        Action
+                        Tahun Lulus
                       </th>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>
-                          <b>1</b>
-                        </td>
-                        <td>
-                          <b>AJI PRASETYO</b>
-                        </td>
-                        <td>
-                          PALEMBANG, 19 april 2021
-                        </td>
-                        <td>
-                          Jlan Sukarela Lrg Swadaya 2
-                        </td>
-                        <td>
-                          2019
-                        </td>
-                        <td>
-                          2021
-                        </td>
-                        <td>
-                          <button class="btn btn-danger" name="login">Hapus</button>
-                        </td>
-                      
-                      </tr>
+                      <?php
+                        $num = 1;
+                        foreach ($tampilkan as $data => $value) {
+                          
+                        echo '
+                        <tr>
+                          <td>
+                            <b>'.$num.'</b>
+                          </td>
+                          <td>
+                            <b>'.$value['id_mahasiswa'].'</b>
+                          </td>
+                          <td>
+                            '.$value['nama'].'
+                          </td>
+                          <td>
+                          '.$value['tempat_lahir'].', '.$value['tgl_lahir'].'
+                          </td>
+                          <td>
+                          '.$value['alamat'].'
+                          </td>
+                          <td>
+                          '.$value['tahun_masuk'].'
+                          </td>
+                          <td>
+                          '.$value['tahun_lulus'].'
+                          </td>
+                          <td>
+                            <form action="'.$url.'?page=control" method="POST"> 
+                            <button class="btn btn-danger" name="hapus_listalumni">Hapus</button>
+                            <input type="hidden" name="id" value="'.$value['id_mahasiswa'].'">
+                            </form>
+                          </td>
+                        
+                        </tr>
+                        ';
+                        $num++;
+                      }
+                      ?>
                     </tbody>
                   </table>
                 </div>
@@ -107,20 +119,3 @@
       </div>
     </div>
   </div>
-  <!--   Core JS Files   -->
-  <script src="../assets/js/core/jquery.min.js"></script>
-  <script src="../assets/js/core/popper.min.js"></script>
-  <script src="../assets/js/core/bootstrap.min.js"></script>
-  <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-  <!--  Google Maps Plugin    -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-  <!-- Chart JS -->
-  <script src="../assets/js/plugins/chartjs.min.js"></script>
-  <!--  Notifications Plugin    -->
-  <script src="../assets/js/plugins/bootstrap-notify.js"></script>
-  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="../assets/js/now-ui-dashboard.min.js?v=1.5.0" type="text/javascript"></script><!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
-  <script src="../assets/demo/demo.js"></script>
-</body>
-
-</html>

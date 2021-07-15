@@ -1,8 +1,11 @@
 <?php
-  // header("Cache-Control: no cache");
-  // session_cache_limiter("private_no_expire");
-  // session_cache_limiter("public");
+  session_cache_limiter("private_no_expire");
+  session_cache_limiter("public");
+  header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+  header("Cache-Control: post-check=0, pre-check=0", false);
+  header("Pragma: no-cache");
   session_start();
+  // echo $_SESSION['user'];
   
   $url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[PHP_SELF]";
     
@@ -25,4 +28,8 @@
   <link href="assets/css/now-ui-dashboard.css?v=1.5.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="assets/demo/demo.css" rel="stylesheet" />
+      
+    <link rel="stylesheet" href="assets/css/yearpicker.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 </head>

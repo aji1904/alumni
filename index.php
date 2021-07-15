@@ -15,7 +15,12 @@
     $_SESSION['user'] = "tamu";
   }
 
-  $action = $_GET['page'];
+  // handle page
+  if (empty($_GET['page'])) {
+    echo '<script>window.location = "'.$url.'?page=home";</script>';
+  }
+
+  $action = $_GET['page'];  
   $home = $url."?page=home";
 
   if ($_SESSION['user'] == "admin") {
@@ -28,8 +33,9 @@
       case 'listdata'                       : include_once "page/listalumni.php" ; break;
       case 'hapus'                          : include_once "page/hapus.php" ; break;
       case 'control'                        : include_once "page/controller.php" ; break;
+      case 'home'                           : include_once "page/index.php" ; break;
       
-      default                         : header("location: $home"); exit(); break;
+      default                         : include_once "page/index.php"; break;
     }
   } else if($_SESSION['user'] == "user"){
     switch ($action) {
@@ -39,8 +45,9 @@
       case 'listdata'                       : include_once "page/listalumni.php" ; break;
       case 'hapus'                          : include_once "page/hapus.php" ; break;
       case 'control'                        : include_once "page/controller.php" ; break;
+      case 'home'                           : include_once "page/index.php" ; break;
       
-      default                         : header("location: $home"); die(); break;
+      default                         : include_once "page/index.php" ; break;
     }
   } else {
     switch ($action) {
@@ -49,7 +56,7 @@
       case 'control'                        : include_once "page/controller.php" ; break;
       case 'login'                          : include_once "page/login.php" ; break;
       
-      default                         : header("location: $home"); die(); break;
+      default                         : include_once "page/index.php" ; break;
     }
   }
   

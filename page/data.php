@@ -14,32 +14,8 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 -->
+
     <?php
-
-    if (isset($_POST['simpan_alumni'])) {
-      $nama = $_POST['nama'];
-      $username = $_POST['username'];
-      $password = md5($_POST['password']);
-      $email = $_POST['email'];
-      $telepon = $_POST['telepon'];
-
-      // cek user
-      $cek_user = mysqli_query($CONNECT, "Select username from user where username='".$username."' ");
-      
-      if (mysqli_num_rows($cek_user) > 0) {
-        $_SESSION['message'] = '<div class="alert alert-danger ml-3 mr-3 mt-3">
-                                <span><b>USERNAME Sudah Terdaftar</b></span>
-                                </div>';
-      }else {
-        $simpan_user = mysqli_query($CONNECT, "INSERT INTO user (nama,username,password,email,no_hp) values ('".$nama."','".$username."','".$password."','".$email."','".$telepon."')");
-        if ($simpan_user) {
-          $_SESSION['message'] = '<div class="alert alert-success ml-3 mr-3 mt-3">
-                                <span><b>DATA Berhasil di Tambahkan</b></span>
-                                </div>';
-        }
-      }
-    }
-
       include "components/sidebar.php";
       
     ?>
@@ -60,54 +36,58 @@
         <div class="row">
           <div class="col-md-12">
             <div class="card">
-              <div class="card-header">
-                <h5 class="title">Edit Profile</h5>
-              </div>
+            <?php
+              if (isset($_SESSION['message'])) {
+                echo $_SESSION['message'];
+                unset($_SESSION['message']);
+              }
+            ?>
               <div class="card-body">
-                <form method="POST">
+                <form method="POST" action="<?= $url?>?page=control">
                   <div class="row">
                     <div class="col-md-4 pr-1">
                       <div class="form-group">
                         <label>NIM</label>
-                        <input type="number" name="nim" class="form-control" placeholder="NIM">
+                        <input type="number" name="nim" class="form-control" placeholder="NIM" required>
                       </div>
                     </div>
                     <div class="col-md-4 pr-1">
                       <div class="form-group">
                         <label>Nama</label>
-                        <input type="text" name="nama" class="form-control" placeholder="Nama">
+                        <input type="text" name="nama" class="form-control" placeholder="Nama" required>
                       </div>
                     </div>
-                    <div class="col-md-2 pr-1">
+                    <div class="col-md-4 pr-1">
                       <div class="form-group">
                         <label>Tempat Lahir</label>
-                        <input type="text" name="lahir" class="form-control" placeholder="Tempat Lahir">
-                      </div>
-                    </div>
-                    <div class="col-md-2 pr-1">
-                      <div class="form-group">
-                        <label>Tanggal Lahir</label>
-                        <input type="date" name="tanggal" class="form-control">
+                        <input type="text" name="lahir" class="form-control" placeholder="Tempat Lahir" required>
                       </div>
                     </div>
                   </div>
                   <div class="row">
+                    
+                  <div class="col-md-4 pr-1">
+                      <div class="form-group">
+                        <label>Tanggal Lahir</label>
+                        <input type="date" name="tanggal" class="form-control" required>
+                      </div>
+                    </div>
                     <div class="col-md-4 pr-1">
                       <div class="form-group">
                         <label>Alamat</label>
-                        <input type="text" name="alamat" class="form-control" placeholder="Alamat">
+                        <input type="text" name="alamat" class="form-control" placeholder="Alamat" required>
                       </div>
                     </div>
-                    <div class="col-md-4 pr-1">
+                    <div class="col-md-2 pr-1">
                       <div class="form-group">
                         <label>Tahun Masuk</label>
-                        <input type="date" class="form-control" name="tahun_masuk">
+                        <input type="text" class="yearpicker form-control" value="" name="tahun_masuk" required>
                       </div>
                     </div>
-                    <div class="col-md-4 pr-1">
+                    <div class="col-md-2 pr-1">
                       <div class="form-group">
                         <label>Tahun Lulus</label>
-                        <input type="date" class="form-control" name="tahun_lulus">
+                        <input type="text" class="yearpicker form-control" value="" name="tahun_lulus" required>
                       </div>
                     </div>
                   </div>
@@ -123,20 +103,3 @@
       </div>
     </div>
   </div>
-  <!--   Core JS Files   -->
-  <script src="../assets/js/core/jquery.min.js"></script>
-  <script src="../assets/js/core/popper.min.js"></script>
-  <script src="../assets/js/core/bootstrap.min.js"></script>
-  <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-  <!--  Google Maps Plugin    -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-  <!-- Chart JS -->
-  <script src="../assets/js/plugins/chartjs.min.js"></script>
-  <!--  Notifications Plugin    -->
-  <script src="../assets/js/plugins/bootstrap-notify.js"></script>
-  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="../assets/js/now-ui-dashboard.min.js?v=1.5.0" type="text/javascript"></script><!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
-  <script src="../assets/demo/demo.js"></script>
-</body>
-
-</html>

@@ -20,7 +20,8 @@
       </button>
       <div class="collapse navbar-collapse justify-content-end" id="navigation">
         <ul class="navbar-nav">
-          <li class="nav-item">
+          <li class="nav-item ">
+            <div id="button_login">
             <?php
               if ($_SESSION['user'] == "admin" || $_SESSION['user'] == "user") {
                 echo '
@@ -36,6 +37,7 @@
                 ';
               }              
             ?>
+            </div>
           </li>
         </ul>
       </div>

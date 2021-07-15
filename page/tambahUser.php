@@ -17,30 +17,7 @@
 
 
 <?php
-    if (isset($_POST['simpan_user'])) {
-      $nama = $_POST['nama'];
-      $username = $_POST['username'];
-      $password = md5($_POST['password']);
-      $email = $_POST['email'];
-      $telepon = $_POST['telepon'];
-
-      // cek user
-      $cek_user = mysqli_query($CONNECT, "Select username from user where username='".$username."' ");
-      
-      if (mysqli_num_rows($cek_user) > 0) {
-        $_SESSION['message'] = '<div class="alert alert-danger ml-3 mr-3 mt-3">
-                                <span><b>USERNAME Sudah Terdaftar</b></span>
-                                </div>';
-      }else {
-        $simpan_user = mysqli_query($CONNECT, "INSERT INTO user (nama,username,password,email,no_hp) values ('".$nama."','".$username."','".$password."','".$email."','".$telepon."')");
-        if ($simpan_user) {
-          $_SESSION['message'] = '<div class="alert alert-success ml-3 mr-3 mt-3">
-                                <span><b>DATA Berhasil di Tambahkan</b></span>
-                                </div>';
-        }
-      }
-    }
-
+    
       include "components/sidebar.php";
     ?>
     
@@ -66,7 +43,7 @@
               }
             ?>
               <div class="card-body">
-                <form method="POST">
+                <form method="POST" action="<?= $url?>?page=control">
                   <div class="row">
                     <div class="col-md-4 pr-1">
                       <div class="form-group">
@@ -113,20 +90,3 @@
       </div>
     </div>
   </div>
-  <!--   Core JS Files   -->
-  <script src="../assets/js/core/jquery.min.js"></script>
-  <script src="../assets/js/core/popper.min.js"></script>
-  <script src="../assets/js/core/bootstrap.min.js"></script>
-  <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-  <!--  Google Maps Plugin    -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-  <!-- Chart JS -->
-  <script src="../assets/js/plugins/chartjs.min.js"></script>
-  <!--  Notifications Plugin    -->
-  <script src="../assets/js/plugins/bootstrap-notify.js"></script>
-  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="../assets/js/now-ui-dashboard.min.js?v=1.5.0" type="text/javascript"></script><!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
-  <script src="../assets/demo/demo.js"></script>
-</body>
-
-</html>

@@ -15,7 +15,6 @@
       <div class="sidebar-wrapper" id="sidebar-wrapper">
         <ul class="nav">
         <?php
-        echo $_SESSION['user'];
         if ($_SESSION['user']=="tamu") {
           echo '
           <li>
@@ -33,6 +32,12 @@
           ';
         } else if($_SESSION['user'] =="user"){
           echo '
+          <li>
+            <a href="'.$home.'">
+              <i class="now-ui-icons design_app"></i>
+              <p>Home</p>
+            </a>
+          </li>
           <li >
             <a href="'.$url.'?page=cari">
               <i class="now-ui-icons design_app"></i>
@@ -55,6 +60,12 @@
           ';
         } else {
           echo '
+          <li>
+            <a href="'.$home.'">
+              <i class="now-ui-icons design_app"></i>
+              <p>Home</p>
+            </a>
+          </li>
           <li >
             <a href="'.$url.'?page=cari">
               <i class="now-ui-icons design_app"></i>
