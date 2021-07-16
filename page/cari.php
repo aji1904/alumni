@@ -24,8 +24,8 @@
     $query_cari = "SELECT * FROM data_alumni WHERE id_mahasiswa LIKE '%".$cari."%' OR nama LIKE '%".$cari."%' OR tahun_masuk LIKE '%".$cari."%' OR tahun_lulus LIKE '%".$cari."%' ";
     $tampilkan = mysqli_query($CONNECT, $query_cari);
     
-  } else if(isset($_POST['semua'])) {
-    $query_cari = "SELECT * FROM data_alumni ";
+  } else if(isset($_SESSION['semua'])) {
+    $query_cari = $_SESSION['semua'];
     $tampilkan = mysqli_query($CONNECT, $query_cari);
   } else {
     $query_cari = "SELECT * FROM data_alumni ";
@@ -66,7 +66,7 @@
                       <span><b>Data Tidak Tersedia</b></span>
                       </div>
                       <div class="col-md-3 ml-3 mr-3 mt-3">
-                        <form method="POST"><button class="alert btn-primary btn-block" name="semua">Tampilkan Semua</button></form>
+                        <form method="POST" action="'.$url.'?page=control"><button class="alert btn-primary btn-block" name="semua">Tampilkan Semua</button></form>
                       </div>
                     </div>
                     

@@ -161,30 +161,56 @@ if (isset($_POST['simpan_user'])) {
     }
     mysqli_close($CONNECT); 
     }
-
+    
+    // update data
     if (isset($_POST['update_user'])) {
         if ($_SESSION['user'] == "admin") {
-          $query_update = "UPDATE table admin set username='".$_POST['username']."',email='".$_POST['email']."',password='md5(".$_POST['password'].")' WHERE username='".$_POST['id']."' ";
+          $query_update = "UPDATE admin set username='".$_POST['username']."',email='".$_POST['email']."' WHERE username='".$_SESSION['data']['username']."' ";
           $simpan = mysqli_query($CONNECT, $query_update);
           $_SESSION['message'] = '<div class="alert alert-success ml-3 mr-3 mt-3">
                                       <span><b>DATA Berhasil di Update</b></span>
                                       </div>';
-                                      echo $query_update;
-            //   echo '<script>window.location = "'.$url.'?page=profil";</script>';
+              echo '<script>window.location = "'.$url.'?page=profil";</script>';
         }
       
         if ($_SESSION['user'] =="user") {
-          $query_update = "UPDATE table user set username='".$_POST['username']."',email='".$_POST['email']."',password='md5(".$_POST['password'].")',nama='".$_POST['nama']."',no_hp='".$_POST['no_hp']."' WHERE username='".$_POST['id']."' ";
+          $query_update = "UPDATE user set username='".$_POST['username']."',email='".$_POST['email']."', nama='".$_POST['nama']."',no_hp='".$_POST['no_hp']."' WHERE username='".$_SESSION['data']['username']."' ";
           $simpan = mysqli_query($CONNECT, $query_update);
           $_SESSION['message'] = '<div class="alert alert-success ml-3 mr-3 mt-3">
                                       <span><b>DATA Berhasil di Update</b></span>
                                       </div>';
-                                      echo $query_update;
+              echo '<script>window.location = "'.$url.'?page=profil";</script>';
+        }
+        mysqli_close($CONNECT); 
+      }
+
+    // update password
+    if (isset($_POST['update_user_password'])) {
+        if ($_SESSION['user'] == "admin") {
+          $query_update = "UPDATE admin set password=md5('".$_POST['password']."') WHERE username='".$_SESSION['data']['username']."' ";
+          $simpan = mysqli_query($CONNECT, $query_update);
+          $_SESSION['message'] = '<div class="alert alert-success ml-3 mr-3 mt-3">
+                                      <span><b>DATA Berhasil di Update</b></span>
+                                      </div>';
+              echo '<script>window.location = "'.$url.'?page=profil";</script>';
+        }
+      
+        if ($_SESSION['user'] =="user") {
+          $query_update = "UPDATE user set password=md5('".$_POST['password']."') WHERE username='".$_SESSION['data']['username']."' ";
+          $simpan = mysqli_query($CONNECT, $query_update);
+          $_SESSION['message'] = '<div class="alert alert-success ml-3 mr-3 mt-3">
+                                      <span><b>DATA Berhasil di Update</b></span>
+                                      </div>';
 
               echo '<script>window.location = "'.$url.'?page=profil";</script>';
         }
         mysqli_close($CONNECT); 
       }
 
+    if(isset($_POST['semua'])) {
+        $query_cari = "SELECT * FROM data_alumni ";
+        $_SESSION['semua'] = $query_cari;
+        echo '<script>window.location = "'.$url.'?page=cari";</script>';
+    }
 
 ?>

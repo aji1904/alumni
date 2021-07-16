@@ -15,8 +15,20 @@
 
 -->
 <?php
-  $tampilkan = mysqli_query($CONNECT,"Select id_mahasiswa, nama, tempat_lahir, tgl_lahir, alamat, tahun_masuk, tahun_lulus from data_alumni");
- 
+  // list data
+  if (isset($_POST['data'])) {
+      
+    $cari = $_POST['data'];
+    $query_cari = "SELECT * FROM data_alumni WHERE id_mahasiswa LIKE '%".$cari."%' OR nama LIKE '%".$cari."%' OR tahun_masuk LIKE '%".$cari."%' OR tahun_lulus LIKE '%".$cari."%' ";
+    $tampilkan = mysqli_query($CONNECT, $query_cari);
+    
+  } else if(isset($_SESSION['semua_alumni'])) {
+    $query_cari = $_SESSION['semua_alumni'];
+    $tampilkan = mysqli_query($CONNECT, $query_cari);
+  } else {
+    $query_cari = "SELECT * FROM data_alumni ";
+    $tampilkan = mysqli_query($CONNECT, $query_cari);
+  }
   include "components/sidebar.php";
     ?>
     
@@ -37,15 +49,26 @@
             <div class="card">
               <div class="card-header">
               <?php
-                if (isset($_SESSION['message'])) {
-                  echo $_SESSION['message'];
-                  $_SESSION['message'] = "";
+                if (isset($_POST['data'])) {
+                  if ( mysqli_num_rows($tampilkan) == 0) {
+                    echo '
+                    <div class="row">
+                      <div class="alert alert-danger ml-3 mr-3 mt-3 col-md-8">
+                      <span><b>Data Tidak Tersedia</b></span>
+                      </div>
+                      <div class="col-md-3 ml-3 mr-3 mt-3">
+                        <form method="POST" action="'.$url.'?page=control"><button class="alert btn-primary btn-block" name="semua_alumni">Tampilkan Semua</button></form>
+                      </div>
+                    </div>
+                    
+                    ';
+                  }
                 }
-              ?>
+                ?>
               </div>
               <div class="card-body pt-0">
                 <div class="table-responsive">
-                  <table class="table">
+                  <table id="table_id" class="table">
                     <thead class=" text-primary">
                       <th>
                         No

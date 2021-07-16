@@ -98,8 +98,19 @@ if ($_SESSION['user'] =="user") {
                       </div>
                     </div>
                   </div>
-                  <?php } ?>
-                  <button class="btn btn-success btn-block" name="update_user">Update Profil</button>
+                  <?php 
+                    } 
+                  
+                    if(isset($_GET['id'])=="pass") {
+                      echo '<button type="submit" class="btn btn-success btn-block"  name="update_user_password">Update Password</button>';
+                      echo '<a href="'.$url.'?page=profil" class="btn btn-warning btn-block" name="update_user_password">Batal</a>';
+                    } else {
+                      echo '<button class="btn btn-success btn-block" name="update_user">Update Profil</button>';
+                      echo '<a href="'.$url.'?page=profil" class="btn btn-warning btn-block" name="update_user_password">Batal</a>';
+
+                    }
+                  ?>
+                
                 </form>
 
                 <?php  
@@ -113,3 +124,14 @@ if ($_SESSION['user'] =="user") {
       </div>
     </div>
   </div>
+
+  <script>
+    $(document).ready(function() {
+      $(window).keydown(function(event){
+        if(event.keyCode == 13) {
+          event.preventDefault();
+          return false;
+        }
+      });
+    });
+  </script>
