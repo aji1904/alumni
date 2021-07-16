@@ -20,7 +20,7 @@
           echo '
           <li>
             <a href="'.$home.'">
-              <i class="now-ui-icons design_app"></i>
+              <i class="now-ui-icons shopping_shop"></i>
               <p>Home</p>
             </a>
           </li>
@@ -35,7 +35,7 @@
           echo '
           <li>
             <a href="'.$home.'">
-              <i class="now-ui-icons design_app"></i>
+              <i class="now-ui-icons shopping_shop"></i>
               <p>Home</p>
             </a>
           </li>
@@ -47,13 +47,13 @@
           </li>
           <li>
             <a href="'.$url.'?page=data">
-              <i class="now-ui-icons education_atom"></i>
+              <i class="now-ui-icons design_app"></i>
               <p>Insert Data</p>
             </a>
           </li>
           <li>
             <a href="'.$url.'?page=profil">
-              <i class="now-ui-icons location_map-big"></i>
+              <i class="now-ui-icons users_single-02"></i>
               <p>Profil</p>
             </a>
           </li>
@@ -63,7 +63,7 @@
           echo '
           <li>
             <a href="'.$home.'">
-              <i class="now-ui-icons design_app"></i>
+              <i class="now-ui-icons shopping_shop"></i>
               <p>Home</p>
             </a>
           </li>
@@ -75,19 +75,19 @@
           </li>
           <li>
             <a href="'.$url.'?page=tambah">
-              <i class="now-ui-icons design_app"></i>
+              <i class="now-ui-icons users_single-02"></i>
               <p>User Access</p>
             </a>
           </li>
           <li>
             <a href="'.$url.'?page=data">
-              <i class="now-ui-icons education_atom"></i>
+              <i class="now-ui-icons design_app"></i>
               <p>Insert Data</p>
             </a>
           </li>
           <li>
             <a href="'.$url.'?page=profil">
-              <i class="now-ui-icons location_map-big"></i>
+              <i class="now-ui-icons users_single-02"></i>
               <p>Profil</p>
             </a>
           </li>
