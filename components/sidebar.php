@@ -15,6 +15,7 @@
       <div class="sidebar-wrapper" id="sidebar-wrapper">
         <ul class="nav">
         <?php
+        // echo $_SESSION['user'];
         if ($_SESSION['user']=="tamu") {
           echo '
           <li>

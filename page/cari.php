@@ -21,10 +21,15 @@
   if (isset($_POST['data'])) {
       
     $cari = $_POST['data'];
-    $query_cari = "SELECT * FROM data_alumni WHERE id_mahasiswa='".$cari."' OR nama='".$cari."' OR tahun_masuk='".$cari."' OR tgl_lahir = '".$cari."' ";
-    $cari_data = mysqli_query($CONNECT, $query_cari);
-    $cek_data_alumni = mysqli_num_rows($cari_data);
-
+    $query_cari = "SELECT * FROM data_alumni WHERE id_mahasiswa LIKE '%".$cari."%' OR nama LIKE '%".$cari."%' OR tahun_masuk LIKE '%".$cari."%' OR tahun_lulus LIKE '%".$cari."%' ";
+    $tampilkan = mysqli_query($CONNECT, $query_cari);
+    
+  } else if(isset($_POST['semua'])) {
+    $query_cari = "SELECT * FROM data_alumni ";
+    $tampilkan = mysqli_query($CONNECT, $query_cari);
+  } else {
+    $query_cari = "SELECT * FROM data_alumni ";
+    $tampilkan = mysqli_query($CONNECT, $query_cari);
   }
   
 ?>
@@ -54,11 +59,17 @@
               <div class="card-header">
                 <?php
                 if (isset($_POST['data'])) {
-                  if ($cek_data_alumni == 0) {
+                  if ( mysqli_num_rows($tampilkan) == 0) {
                     echo '
-                    <div class="alert alert-danger ml-3 mr-3 ">
-                      <span><b>Data Alumni Tidak Ditemukan</b></span>
+                    <div class="row">
+                      <div class="alert alert-danger ml-3 mr-3 mt-3 col-md-8">
+                      <span><b>Data Tidak Tersedia</b></span>
+                      </div>
+                      <div class="col-md-3 ml-3 mr-3 mt-3">
+                        <form method="POST"><button class="alert btn-primary btn-block" name="semua">Tampilkan Semua</button></form>
+                      </div>
                     </div>
+                    
                     ';
                   }
                 }
@@ -66,19 +77,19 @@
               </div>
               <div class="card-body pt-0">
                 <div class="table-responsive">
-                  <table class="table">
+                <table class="table" id="table_id">
                     <thead class=" text-primary">
                       <th>
                         No
                       </th>
                       <th>
-                        NIP
+                        NIM
                       </th>
                       <th>
                         Nama
                       </th>
                       <th>
-                        Tempat & Tanggal Lahir
+                        Tempat & Tgl lahir
                       </th>
                       <th>
                         Alamat
@@ -91,33 +102,41 @@
                       </th>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>
-                          <b>1</b>
-                        </td>
-                        <td>
-                          <b>1234567890123456</b>
-                        </td>
-                        <td>
-                          <b>AJI PRASETYO</b>
-                        </td>
-                        <td>
-                          PALEMBANG, 19 april 2021
-                        </td>
-                        <td>
-                          Jlan Sukarela Lrg Swadaya 2
-                        </td>
-                        <td>
-                          2019
-                        </td>
-                        <td>
-                          2021
-                        </td>
-                      
-                      </tr>
+                      <?php
+                        $num = 1;
+                        foreach ($tampilkan as $data => $value) {
+                          
+                        echo '
+                        <tr>
+                          <td>
+                            <b>'.$num.'</b>
+                          </td>
+                          <td>
+                            <b>'.$value['id_mahasiswa'].'</b>
+                          </td>
+                          <td>
+                            '.$value['nama'].'
+                          </td>
+                          <td>
+                          '.$value['tempat_lahir'].', '.$value['tgl_lahir'].'
+                          </td>
+                          <td>
+                          '.$value['alamat'].'
+                          </td>
+                          <td>
+                          '.$value['tahun_masuk'].'
+                          </td>
+                          <td>
+                          '.$value['tahun_lulus'].'
+                          </td>
+                        
+                        </tr>
+                        ';
+                        $num++;
+                      }
+                      ?>
                     </tbody>
                   </table>
-                </div>
               </div>
             </div>
           </div>

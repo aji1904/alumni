@@ -17,6 +17,7 @@
 
 
 <?php
+
 if ($_SESSION['user'] =="admin") {
       
   $query_cari = "SELECT * FROM admin WHERE username='".$_SESSION['data']['username']."' ";
@@ -41,7 +42,7 @@ if ($_SESSION['user'] =="user") {
       <!-- End Navbar -->
       <div class="panel-header panel-header-sm mb-3">
         <div class="header text-center">
-          <h5 class="title">Profil Anda</h5>
+          <h5 class="title">Edit Profil Anda</h5>
         </div>
       </div>
 
@@ -49,54 +50,57 @@ if ($_SESSION['user'] =="user") {
         <div class="row">
           <div class="col-md-12">
             <div class="card">
-            <?php
-              if (isset($_SESSION['message'])) {
-                echo $_SESSION['message'];
-                unset($_SESSION['message']);
-              }
-            ?>
               <div class="card-body">
                 <?php
                   foreach ($tampilkan as $data => $value) {
                 ?>
+                <form method="POST" action="<?= $url?>?page=control">
                   <div class="row">
-                    <div class="col-md-4 pr-1">
+                  <?php if(!isset($_GET['id'])== "pass") {?>
+
+                    <div class="col-md-12 pr-1">
                       <div class="form-group">
                         <label>Username</label>
-                        <input type="text" class="form-control" value="<?= $value['username']?>" readonly>
+                        <input type="text" class="form-control" name="username" value="<?= $value['username']?>" placeholder="Username">
+                        <input type="hidden" name="id" value="<?= $value['username']?>" >
                       </div>
                     </div>
-                    <div class="col-md-4 pr-1">
+                    <div class="col-md-12 pr-1">
                       <div class="form-group">
                         <label>Email</label>
-                        <input type="email" class="form-control" readonly value="<?= $value['email']?>">
+                        <input type="email" class="form-control" name="email" placeholder="email" value="<?= $value['email']?>">
                       </div>
                     </div>
-                    <div class="col-md-4 pr-1">
+                    <?php 
+                    }
+
+                    if(isset($_GET['id'])== "pass") {?>
+                    <div class="col-md-12 pr-1">
                       <div class="form-group">
                         <label>Password</label>
-                        <input type="password" class="form-control" readonly value="<?= $value['password']?>">
+                        <input type="password" class="form-control" name="password" placeholder="password" value="<?= $value['password']?>">
                       </div>
                     </div>
+                    <?php } ?>
                   </div>
-                  <?php if ($_SESSION['user'] == "user") { ?>
+                  <?php if ($_SESSION['user'] == "user" && !isset($_GET['id']) == "pass") { ?>
                   <div class="row">
-                    <div class="col-md-4 pr-1">
+                    <div class="col-md-12 pr-1">
                       <div class="form-group">
                         <label>Nama</label>
-                        <input type="text" class="form-control" value="<?= $value['no_hp']?>" readonly>
+                        <input type="text" class="form-control" name="nama" placeholder="Nama" value="<?= $value['nama']?>" >
                       </div>
                     </div>
-                    <div class="col-md-4 pr-1">
+                    <div class="col-md-12 pr-1">
                       <div class="form-group">
                         <label>Nomor Telepon</label>
-                        <input type="number" class="form-control" value="<?= $value['no_hp']?>" readonly >
+                        <input type="number" class="form-control" name="no_hp" placeholder="0812312333" value="<?= $value['no_hp']?>"  >
                       </div>
                     </div>
                   </div>
                   <?php } ?>
-                  <a href="<?= $url?>?page=editUser" class="btn btn-success btn-block" name="ubah_profil">Ubah Profil</a>
-                  <a href="<?= $url?>?page=editUser&id=pass" class="btn btn-success btn-block" name="update_user_password">Ubah Password</a>
+                  <button class="btn btn-success btn-block" name="update_user">Update Profil</button>
+                </form>
 
                 <?php  
                 } 

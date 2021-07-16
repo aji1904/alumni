@@ -34,6 +34,7 @@
       case 'hapus'                          : include_once "page/hapus.php" ; break;
       case 'control'                        : include_once "page/controller.php" ; break;
       case 'home'                           : include_once "page/index.php" ; break;
+      case 'editUser'                       : include_once "page/edit_profil.php" ; break;
       
       default                         : include_once "page/index.php"; break;
     }
@@ -46,6 +47,8 @@
       case 'hapus'                          : include_once "page/hapus.php" ; break;
       case 'control'                        : include_once "page/controller.php" ; break;
       case 'home'                           : include_once "page/index.php" ; break;
+      case 'editUser'                       : include_once "page/edit_profil.php" ; break;
+
       
       default                         : include_once "page/index.php" ; break;
     }

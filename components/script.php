@@ -1,12 +1,16 @@
   <script src="assets/js/yearpicker.js"></script>
   <script>
   
-   $(document).ready(function() {
+  $(document).ready(function() {
     $(".yearpicker").yearpicker({
-          endYear: 2050
-        });
+      endYear: 2050
     });
+
+    $('#table_id').DataTable();
+  });
+    
   </script>
+  
   <!-- <script src="assets/js/core/jquery.min.js"></script> -->
   <script src="assets/js/core/popper.min.js"></script>
   <script src="assets/js/core/bootstrap.min.js"></script>

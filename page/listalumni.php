@@ -68,6 +68,9 @@
                       <th>
                         Tahun Lulus
                       </th>
+                      <th>
+                        Action
+                      </th>
                     </thead>
                     <tbody>
                       <?php
